@@ -1,13 +1,11 @@
 package com.mygdx.game;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 
-public class LevelScreen extends BaseScreen{
-
+public class Level2Screen extends BaseScreen {
     private Turtle turtle;
     private boolean win;
+
     @Override
     public void initialize() {
         BaseActor ocean = new BaseActor(0, 0, mainStage);
@@ -16,8 +14,8 @@ public class LevelScreen extends BaseScreen{
         BaseActor.setWorldBounds(ocean);
 
         new Starfish(400, 400, mainStage);
-        new Starfish(500, 100, mainStage);
-        new Starfish(100, 450, mainStage);
+        new Starfish(600, 100, mainStage);
+        new Starfish(50, 450, mainStage);
         new Starfish(200, 250, mainStage);
 
         new Rock(200, 150, mainStage);
@@ -26,6 +24,7 @@ public class LevelScreen extends BaseScreen{
         new Rock(450, 200, mainStage);
 
         new Shark(600, 400, mainStage);
+        new Shark(800, 300, mainStage);
 
         turtle = new Turtle(20, 20, mainStage);
 
@@ -37,7 +36,7 @@ public class LevelScreen extends BaseScreen{
         for (BaseActor rockActor : BaseActor.getList(mainStage, "com.mygdx.game.Rock"))
             turtle.preventOverlap(rockActor);
 
-        for (BaseActor starfishActor: BaseActor.getList(mainStage, "com.mygdx.game.Starfish")) {
+        for (BaseActor starfishActor : BaseActor.getList(mainStage, "com.mygdx.game.Starfish")) {
             Starfish starfish = (Starfish) starfishActor;
 
             if (turtle.overlaps(starfish) && !starfish.isCollected()) {
@@ -50,7 +49,7 @@ public class LevelScreen extends BaseScreen{
             }
         }
 
-        for (BaseActor actor:  BaseActor.getList(mainStage, "com.mygdx.game.Shark")) {
+        for (BaseActor actor : BaseActor.getList(mainStage, "com.mygdx.game.Shark")) {
             Shark shark = (Shark) actor;
             if (turtle.overlaps(shark)) {
                 turtle.remove();
@@ -63,7 +62,7 @@ public class LevelScreen extends BaseScreen{
             }
         }
 
-        if (BaseActor.count(mainStage, "com.mygdx.game.Starfish") == 0  && !win) {
+        if (BaseActor.count(mainStage, "com.mygdx.game.Starfish") == 0 && !win) {
             win = true;
             BaseActor youWinMessage = new BaseActor(0, 0, uiStage);
             youWinMessage.loadTexture("assets/you-win.png");
@@ -72,16 +71,6 @@ public class LevelScreen extends BaseScreen{
             youWinMessage.addAction(Actions.delay(1));
             youWinMessage.addAction(Actions.after(Actions.fadeIn(1)));
 
-            BaseActor continueMessage = new BaseActor(0, 0, uiStage);
-            continueMessage.loadTexture("assets/message-continue.png");
-            continueMessage.centerAtPosition(400, 100);
-            continueMessage.setOpacity(0);
-            continueMessage.addAction(Actions.delay(1));
-            continueMessage.addAction(Actions.after(Actions.fadeIn(1)));
-        }
-
-        if (Gdx.input.isKeyPressed(Input.Keys.C) && win) {
-            StarfishCollectorCh3.setActiveScreen(new Level2Screen());
         }
     }
 }
