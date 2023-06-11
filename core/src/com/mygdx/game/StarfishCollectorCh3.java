@@ -1,11 +1,6 @@
 package com.mygdx.game;
 
-import com.badlogic.gdx.ApplicationAdapter;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
-import com.badlogic.gdx.utils.ScreenUtils;
-import com.badlogic.gdx.utils.compression.lzma.Base;
 
 public class StarfishCollectorCh3 extends GameBeta {
 
@@ -18,6 +13,7 @@ public class StarfishCollectorCh3 extends GameBeta {
 		BaseActor ocean = new BaseActor(0, 0, mainStage);
 		ocean.loadTexture("assets/water.jpg");
 		ocean.setSize(800, 600);
+		BaseActor.setWorldBounds(ocean);
 
 		new Starfish(400, 400, mainStage);
 		new Starfish(500, 100, mainStage);
