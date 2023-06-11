@@ -42,5 +42,6 @@ public class Turtle extends BaseActor {
         }
 
         boundToWorld();
+        alignCamera();
     }
 }
