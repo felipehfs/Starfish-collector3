@@ -14,6 +14,8 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.Array;
 
+import java.util.ArrayList;
+
 public class BaseActor extends Actor {
     private Animation<TextureRegion> animation;
     private float elapsedTime;
@@ -272,5 +274,25 @@ public class BaseActor extends Actor {
             return null;
         this.moveBy(mtv.normal.x * mtv.depth, mtv.normal.y * mtv.depth);
         return mtv.normal;
+    }
+
+    public static ArrayList<BaseActor> getList(Stage stage, String className) {
+        ArrayList<BaseActor> list = new ArrayList<>();
+
+        Class theClass = null;
+        try {
+            theClass = Class.forName(className);
+        }catch (Exception error) {
+            error.printStackTrace();
+        }
+        for(Actor actor: stage.getActors()) {
+            if (theClass.isInstance(actor))
+                list.add((BaseActor) actor);
+        }
+        return list;
+    }
+
+    public static int count(Stage stage, String className) {
+        return getList(stage, className).size();
     }
 }
